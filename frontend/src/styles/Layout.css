@@ -1,0 +1,272 @@
+/* ========================
+   GLOBAL LAYOUT
+   ======================== */
+.layout {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ========================
+   NAVBAR WRAPPER
+   ======================== */
+.navbar {
+  background-color: var(--bg-secondary);
+  box-shadow: var(--shadow);
+  padding: 0.8rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ========================
+   NAV CONTAINER - CRITICAL FIXES FOR SINGLE LINE
+   ======================== */
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures logo is left, content is right */
+  gap: 1rem;
+
+  /* Removed `white-space: nowrap` and `overflow: hidden` from container */
+}
+
+/* ========================
+   BRAND SECTION
+   ======================== */
+.nav-brand-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0; /* Don't shrink icon/brand */
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.site-name {
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ========================
+   NAV LINKS
+   ======================== */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  flex: 1 1 auto; /* Allows growth, aggressive shrinking */
+  justify-content: flex-end; /* Pushes all links to the right edge */
+
+  overflow-x: auto; /* Allows horizontal scrolling of links if screen is too narrow */
+  -webkit-overflow-scrolling: touch;
+  min-width: 0;
+}
+
+/* Custom scrollbar for horizontal links */
+.nav-links::-webkit-scrollbar {
+  height: 6px;
+}
+.nav-links::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-secondary);
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  transition: 0.25s;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link:hover {
+  background-color: var(--bg-hover);
+  color: var(--primary-color);
+}
+
+.nav-link.active {
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+/* ========================
+   RIGHT ACTIONS
+   ======================== */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0; /* Ensures right-side elements are prioritized and don't shrink */
+  margin-left: 2rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: 0.25s;
+  color: var(--text-secondary);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  color: var(--primary-color);
+}
+
+.user-name {
+  color: var(--text-secondary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.logout-btn {
+  background: var(--danger-gradient);
+  color: white;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s;
+  font-weight: 500;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================
+   MOBILE VIEW
+   ======================== */
+@media (max-width: 768px) {
+  /* Hamburger icon visibility */
+  .hamburger {
+    display: flex;
+    background: none;
+    border: none;
+    padding: 0.4rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    order: 3; /* Push to the end of the flex container */
+  }
+
+  /* Collapse links and actions by default */
+  .nav-links,
+  .nav-actions {
+    display: none;
+    position: absolute;
+    top: 100%; /* Drop down right below the navbar */
+    left: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem 1rem;
+    z-index: 999;
+    overflow-x: hidden;
+    align-items: stretch; /* Stretch children full width */
+    border-top: 1px solid var(--border-color);
+  }
+
+  /* Show the menu when the .mobile-open class is active */
+  .nav-links.mobile-open,
+  .nav-actions.mobile-open {
+    display: flex;
+  }
+
+  /* Ensure action elements take full width in mobile menu */
+  .user-name {
+    max-width: 100%;
+    padding: 0.5rem 0;
+    justify-content: center;
+  }
+
+  .logout-btn {
+    width: 100%;
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  /* Space out mobile links */
+  .nav-links a {
+    width: 100%;
+    margin: 0.2rem 0;
+    justify-content: center;
+  }
+
+  /* Hide specific non-mobile elements when the menu is collapsed */
+  .nav-actions:not(.mobile-open) .theme-toggle,
+  .nav-actions:not(.mobile-open) .user-name,
+  .nav-actions:not(.mobile-open) .logout-btn {
+    display: none;
+  }
+
+  /* On mobile, only display hamburger, theme toggle, and brand in the main bar */
+  .nav-actions {
+    gap: 0.8rem;
+  }
+
+  /* Place the hamburger last */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Theme toggle should stay in the main bar on mobile */
+  .theme-toggle {
+    display: block;
+    padding: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  /* Hide name and logout button from the main bar on mobile */
+  .nav-actions .user-name,
+  .nav-actions .logout-btn {
+    display: none;
+  }
+}
+
+/* Desktop-specific hamburger hiding */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+}
